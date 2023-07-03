@@ -18,6 +18,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val LightColorScheme = lightColorScheme(
     primary = Blue,
+    secondary = Blue,
     background = BackgroundMain,
     surface = CardViewBackground
 
@@ -65,6 +66,6 @@ fun BackPagTheme(
     )
 
     val systemUiController = rememberSystemUiController()
-    systemUiController.setSystemBarsColor(BackgroundMain)
+    systemUiController.setSystemBarsColor(Blue)
 
 }
