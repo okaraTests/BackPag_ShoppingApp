@@ -9,11 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavType
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import dev.burnoo.cokoin.Koin
+import dev.burnoo.cokoin.navigation.KoinNavHost
+import ok.okara.backpag.di.myModules
 import ok.okara.backpag.ui.features.IntroScreen
+import ok.okara.backpag.ui.features.signUp.SignUpScreen
 import ok.okara.backpag.ui.theme.BackPagTheme
 import ok.okara.backpag.ui.theme.BackgroundMain
 import ok.okara.backpag.util.KEY_CATEGORY_ARG
@@ -25,12 +28,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BackPagTheme {
-                Surface(
-                    color = BackgroundMain,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    BackPagStore()
+            Koin(
+                appDeclaration = { modules(myModules) }
+            ) {
+                BackPagTheme {
+                    Surface(
+                        color = BackgroundMain,
+                        modifier = Modifier.fillMaxSize()
+                    ) {
+                        BackPagStore()
+                    }
                 }
             }
         }
@@ -40,16 +47,21 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun BackPagStore() {
     val navController = rememberNavController()
-    NavHost(
+    KoinNavHost(
         navController = navController,
         startDestination = MyScreens.IntroScreen.route
     ) {
 
-        composable(MyScreens.MainScreen.route) {
+        composable(route = MyScreens.IntroScreen.route){
+            IntroScreen()
+        }
+
+        composable(route = MyScreens.MainScreen.route) {
             MainScreen()
         }
 
-        composable(route = "${MyScreens.ProductScreen.route}/$KEY_PRODUCT_ARG",
+        composable(
+            route = "${MyScreens.ProductScreen.route}/$KEY_PRODUCT_ARG",
             arguments = listOf(navArgument("productId") {
             type = NavType.IntType
         })) {
@@ -65,26 +77,35 @@ fun BackPagStore() {
             CategoryScreen(it.arguments!!.getString("categoryName", "null: no Value"))
         }
 
-        composable(MyScreens.ProfileScreen.route) {
+        composable(route = MyScreens.ProfileScreen.route) {
             ProfileScreen()
         }
 
-        composable(MyScreens.CartScreen.route) {
+        composable(route = MyScreens.CartScreen.route) {
             CartScreen()
         }
 
-        composable(MyScreens.SignInScreen.route) {
+        composable(route = MyScreens.SignInScreen.route) {
             SignInScreen()
         }
 
-        composable(MyScreens.IntroScreen.route) {
+        composable(route = MyScreens.IntroScreen.route) {
             IntroScreen()
         }
 
-        composable(MyScreens.NoInternetScreen.route) {
+        composable(route = MyScreens.NoInternetScreen.route) {
             NoInternetScreen()
         }
+
+        composable(route = MyScreens.SignUpScreen.route) {
+            SignUpScreen()
+        }
     }
+}
+
+@Composable
+fun SignInScreen() {
+    TODO("Not yet implemented")
 }
 
 @Composable
@@ -92,10 +113,6 @@ fun NoInternetScreen() {
     TODO("Not yet implemented")
 }
 
-@Composable
-fun SignInScreen() {
-    TODO("Not yet implemented")
-}
 
 @Composable
 fun CartScreen() {

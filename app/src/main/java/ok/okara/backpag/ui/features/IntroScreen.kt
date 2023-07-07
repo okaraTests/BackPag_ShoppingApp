@@ -21,6 +21,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.navArgument
+import dev.burnoo.cokoin.navigation.getNavController
 import ok.okara.backpag.R
 import ok.okara.backpag.ui.theme.BackPagTheme
 import ok.okara.backpag.ui.theme.BackgroundMain
@@ -47,8 +49,10 @@ fun DefaultPreviewIntro() {
 
 @Composable
 fun IntroScreen() {
+    val navigation = getNavController()
+
     Image(
-        colorFilter = ColorFilter.tint(OnPictureBlur, BlendMode.Darken),
+        colorFilter = ColorFilter.tint(OnPictureBlur, BlendMode.Darken ),
         modifier = Modifier.fillMaxSize(),
         painter = painterResource(id = R.drawable.start_bild),
         contentDescription = MyScreens.IntroScreen.route,
@@ -64,14 +68,14 @@ fun IntroScreen() {
     ) {
         Button(
             modifier = Modifier.fillMaxWidth(.7f),
-            onClick = { /*TODO*/ }
+            onClick = {  }
         ) {
             Text(text = "Sign in")
         }
         Button(
             modifier = Modifier.fillMaxWidth(.7f),
             colors = ButtonDefaults.buttonColors(CardViewBackground),
-            onClick = { /*TODO*/ }
+                onClick = { navigation.navigate(route = MyScreens.SignUpScreen.route) }
         ) {
             Text(text = "Sign on", color = Blue)
 
