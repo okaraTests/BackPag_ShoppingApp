@@ -81,16 +81,16 @@ dependencies {
     implementation "io.coil-kt:coil-compose:2.4.0"
 
     // Coroutine =>
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.2"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     // koin => (second part built for only compose)
-//    implementation("io.insert-koin:koin-android:3.4.2")
-    implementation("dev.burnoo:cokoin:1.0.0")
-    implementation("dev.burnoo:cokoin-android-viewmodel:1.0.0") // for Androidx ViewModel
-    implementation("dev.burnoo:cokoin-android-navigation:1.0.0") // for Compose Navigation
+    // implementation("io.insert-koin:koin-android:3.4.2")
+    implementation "dev.burnoo:cokoin:1.0.0"
+    implementation "dev.burnoo:cokoin-android-viewmodel:1.0.0"
+    implementation "dev.burnoo:cokoin-android-navigation:1.0.0"
 
-// Parse Platform =>
+    // Parse Platform =>
     implementation "com.github.parse-community.Parse-SDK-Android:parse:4.2.0"
 
     // Retrofit =>

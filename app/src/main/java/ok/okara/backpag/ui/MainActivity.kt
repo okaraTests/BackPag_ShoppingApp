@@ -16,12 +16,14 @@ import dev.burnoo.cokoin.Koin
 import dev.burnoo.cokoin.navigation.KoinNavHost
 import ok.okara.backpag.di.myModules
 import ok.okara.backpag.ui.features.IntroScreen
+import ok.okara.backpag.ui.features.signIn.SignInScreen
 import ok.okara.backpag.ui.features.signUp.SignUpScreen
 import ok.okara.backpag.ui.theme.BackPagTheme
 import ok.okara.backpag.ui.theme.BackgroundMain
 import ok.okara.backpag.util.KEY_CATEGORY_ARG
 import ok.okara.backpag.util.KEY_PRODUCT_ARG
 import ok.okara.backpag.util.MyScreens
+import org.koin.dsl.module
 
 
 class MainActivity : ComponentActivity() {
@@ -44,73 +46,74 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
 @Composable
 fun BackPagStore() {
     val navController = rememberNavController()
-    KoinNavHost(
-        navController = navController,
-        startDestination = MyScreens.IntroScreen.route
-    ) {
-
-        composable(route = MyScreens.IntroScreen.route){
-            IntroScreen()
-        }
-
-        composable(route = MyScreens.MainScreen.route) {
-            MainScreen()
-        }
-
-        composable(
-            route = "${MyScreens.ProductScreen.route}/$KEY_PRODUCT_ARG",
-            arguments = listOf(navArgument("productId") {
-            type = NavType.IntType
-        })) {
-            ProductScreen(it.arguments!!.getInt("productId", -1))
-        }
-
-        composable(
-            route = "${MyScreens.CategoryScreen.route}/$KEY_CATEGORY_ARG",
-            arguments = listOf(navArgument(MyScreens.CategoryScreen.route) {
-                type = NavType.StringType
-            })
+    Koin(appDeclaration = { modules(myModules) }) {
+        KoinNavHost(
+            navController = navController,
+            startDestination = MyScreens.IntroScreen.route
         ) {
-            CategoryScreen(it.arguments!!.getString("categoryName", "null: no Value"))
-        }
 
-        composable(route = MyScreens.ProfileScreen.route) {
-            ProfileScreen()
-        }
+            composable(route = MyScreens.IntroScreen.route){
+                IntroScreen()
+            }
 
-        composable(route = MyScreens.CartScreen.route) {
-            CartScreen()
-        }
+            composable(route = MyScreens.MainScreen.route) {
+                MainScreen()
+            }
 
-        composable(route = MyScreens.SignInScreen.route) {
-            SignInScreen()
-        }
+            composable(
+                route = "${MyScreens.ProductScreen.route}/$KEY_PRODUCT_ARG",
+                arguments = listOf(navArgument("productId") {
+                    type = NavType.IntType
+                })) {
+                ProductScreen(it.arguments!!.getInt("productId", -1))
+            }
 
-        composable(route = MyScreens.IntroScreen.route) {
-            IntroScreen()
-        }
+            composable(
+                route = "${MyScreens.CategoryScreen.route}/$KEY_CATEGORY_ARG",
+                arguments = listOf(navArgument(MyScreens.CategoryScreen.route) {
+                    type = NavType.StringType
+                })
+            ) {
+                CategoryScreen(it.arguments!!.getString("categoryName", "null: no Value"))
+            }
 
-        composable(route = MyScreens.NoInternetScreen.route) {
-            NoInternetScreen()
-        }
+            composable(route = MyScreens.ProfileScreen.route) {
+                ProfileScreen()
+            }
 
-        composable(route = MyScreens.SignUpScreen.route) {
-            SignUpScreen()
+            composable(route = MyScreens.CartScreen.route) {
+                CartScreen()
+            }
+
+            composable(route = MyScreens.SignInScreen.route) {
+                //chang it
+                SignInScreen()
+            }
+
+            composable(route = MyScreens.IntroScreen.route) {
+                IntroScreen()
+            }
+
+            composable(route = MyScreens.NoInternetScreen.route) {
+                NoInternetScreen()
+            }
+
+            composable(route = MyScreens.SignUpScreen.route) {
+                SignUpScreen()
+            }
         }
     }
 }
 
 @Composable
-fun SignInScreen() {
-    TODO("Not yet implemented")
-}
-
-@Composable
 fun NoInternetScreen() {
-    TODO("Not yet implemented")
+    Surface(modifier = Modifier.fillMaxSize()) {
+
+    }
 }
 
 

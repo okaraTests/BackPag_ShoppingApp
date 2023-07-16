@@ -1,6 +1,7 @@
 package ok.okara.backpag.ui.features
 
 import android.graphics.LightingColorFilter
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -66,16 +67,22 @@ fun IntroScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
     ) {
+
         Button(
             modifier = Modifier.fillMaxWidth(.7f),
-            onClick = {  }
+            onClick = {
+
+                navigation.navigate(MyScreens.SignInScreen.route)
+
+            }
         ) {
             Text(text = "Sign in")
         }
+
         Button(
             modifier = Modifier.fillMaxWidth(.7f),
             colors = ButtonDefaults.buttonColors(CardViewBackground),
-                onClick = { navigation.navigate(route = MyScreens.SignUpScreen.route) }
+            onClick = { navigation.navigate(route = MyScreens.SignUpScreen.route) }
         ) {
             Text(text = "Sign on", color = Blue)
 

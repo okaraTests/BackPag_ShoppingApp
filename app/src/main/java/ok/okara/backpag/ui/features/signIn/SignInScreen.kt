@@ -1,4 +1,4 @@
-package ok.okara.backpag.ui.features.signUp
+package ok.okara.backpag.ui.features.signIn
 
 
 import androidx.compose.foundation.Image
@@ -55,17 +55,14 @@ import ok.okara.backpag.ui.theme.BackgroundMain
 import ok.okara.backpag.ui.theme.Blue
 import ok.okara.backpag.util.MyScreens
 
-
 /*
 * setz die Viewmodel Injektion und Ui controller auseinander
 * optimiere die PreviewFuntion*/
-
-
 @Composable
-fun SignUpScreen() {
+fun SignInScreen() {
     val navController = getNavController()
     Koin(appDeclaration = { modules(myModules) }) {
-        val viewModel = getViewModel<SignUpViewModel>()
+        val viewModel = getViewModel<SignInViewModel>()
         Box {
             Box(
                 modifier = Modifier
@@ -82,7 +79,7 @@ fun SignUpScreen() {
             ) {
                 IconApp()
                 MainCardView(viewModel = viewModel, navigation= navController) {
-                    viewModel.signUpUser()
+                    viewModel.signInUser()
                 }
             }
         }
@@ -91,8 +88,6 @@ fun SignUpScreen() {
 
 @Composable
 fun IconApp() {
-
-
     Surface(
         modifier = Modifier
             .size(64.dp)
@@ -108,14 +103,12 @@ fun IconApp() {
 
 @Composable
 fun MainCardView(
-    viewModel: SignUpViewModel,
+    viewModel: SignInViewModel,
     navigation: NavController,
     SignUpEvent: () -> Unit) {
 
-    val name = viewModel.name.observeAsState("")
     val email = viewModel.email.observeAsState("")
     val password = viewModel.password.observeAsState("")
-    val verifiedPassword = viewModel.verifiedPassword.observeAsState("")
 
     Koin(appDeclaration = {modules(myModules)}) {
         Card(
@@ -136,12 +129,6 @@ fun MainCardView(
                 )
 
                 MainTextField(
-                    edtValue = name.value,
-                    icon = R.drawable.username_icon,
-                    hint = "Your Full Name",
-                    keyboardType = KeyboardType.Text
-                ) { viewModel.name.value = it }
-                MainTextField(
                     edtValue = email.value,
                     icon = R.drawable.email_icon,
                     hint = "Your E-Mail Address",
@@ -152,11 +139,6 @@ fun MainCardView(
                     icon = R.drawable.password_icon,
                     hint = "set a strong Password"
                 ) { viewModel.password.value = it }
-                PasswordTextField(
-                    edtValue = verifiedPassword.value,
-                    icon = R.drawable.password_icon,
-                    hint = "repeat your password"
-                ) { viewModel.verifiedPassword.value = it }
 
                 Button(
                     onClick = SignUpEvent,
@@ -165,7 +147,7 @@ fun MainCardView(
                     shape = Shapes().small
                 ) {
                     Text(
-                        text = "Register Account!",
+                        text = "Log in",
                         modifier = Modifier.wrapContentSize()
                     )
                 }
@@ -175,11 +157,11 @@ fun MainCardView(
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
-                    Text(text = "Already have an account?")
+                    Text(text = "Don't have an account?")
                     Spacer(modifier = Modifier.padding(4.dp))
                     TextButton(
-                        onClick = { navigation.navigate(MyScreens.SignInScreen.route){
-                            popUpTo(MyScreens.SignUpScreen.route){
+                        onClick = { navigation.navigate(MyScreens.SignUpScreen.route){
+                            popUpTo(MyScreens.SignInScreen.route){
                                 inclusive = true
                             }
                         }
@@ -187,8 +169,7 @@ fun MainCardView(
                     ) {
                         Text(
                             color = Blue,
-                            text = "Log In",
-
+                            text = "Sign up!"
                         )
                     }
                 }
@@ -278,7 +259,12 @@ fun MainTextField(
 fun SignupScreenPreview() {
 
     BackPagTheme {
+        Surface(
+            color = BackgroundMain,
+            modifier = Modifier.fillMaxSize()
+        ) {
 
+        }
     }
 
 }
